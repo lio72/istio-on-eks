@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  host                   = "https://81889F7A0E27A3A3A2D6B2F5EDF4F7CD.gr7.us-east-1.eks.amazonaws.com"
+  cluster_ca_certificate = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJS3krMWdMUi9GRmt3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRFeE1EWXhNak0zTURoYUZ3MHpOVEV4TURReE1qUXlNRGhhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUNnOCtVUldBUW1SeW5oNHFZdFNLcldFbDI3UEZrS1BNci84ZDdTSXZJbzhESmJCZVVnV25zWXAwSUsKWnVQcUZVTFVCNndYSmE5b0tuS2swbHZPaDdBcms5L1FEakZKSmtlTEUyemY2aFovUUZ2NXgwVFFUUTJwOXdLZQpiSW84RUZRRlhrQS96YTdwNVFrSHZ6elRYQ1o5OFAybHNyRlVCcnJoZktrQlJxZW1WbEFJWjhlcVZwVFdWaUpFCmxhZ3lySk5uVTlaOFdJbXJEdWNzSkE1eDA1RFI2SmszWU9VdmRFcjBXWGl4VjVGN2d2bitKSnFlZTFtQzBYTGcKZTJRYzh5NHpCYWZuRXV1bWd6UU1tQjBuYTFzZDdlYzk3S0d0Ym5wYU1ndklNQ0FhRmRINE5pa1ZPcWV3UlVOVApiVGsxSXZIK2tmQkYyUTlRSEdZcEQ3THlWa3VQQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJRN01RMVpiYUtaZjM1L3B5ZDNWQ0JWaW9mZEpqQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUM3cGl0Vm1qSQp4K3U4L1IrOTVpU2RCYnBBaWlyRDdhRjE5SStaY2ZjSk90MENjWVFxalo3UlhSWEhGbWxSKzZ3U2JqT2ppanFBCkV3V3VxSFUxcytaZmNjNDhNL0M5RU93Wmhvb1ByMkNhdk1UV1oxbXovd2J4UDFiZTFOZEN3cS9jK1RVYkVIUHQKekovREhvMjNLM3puYXNpZ1JZK3Z3UEp2TzdERE5EREJPcnIrUFVob1JvWk84WENOb0lsazRMMWZYbE1BajdtSQpDS2RtTEI2WG5UWWNUcFEvZm83OFkwSHBhSEcvMndaUDZQNytOZmgvd0lLb0tzZFUwN2FWVm4xSlpRWVFtTG16Cm51b09ZdFRKS21MMFJsdjNuQnRselRXUklnTHFHU055WUdNWEdHbWZ5T21JN1VYWWh0QkRxWUlaL3FEdU5PcTgKU1FsQkpRcUlJWlVnCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
 
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
@@ -16,14 +16,14 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes {
-    host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+    host                   = "https://81889F7A0E27A3A3A2D6B2F5EDF4F7CD.gr7.us-east-1.eks.amazonaws.com"
+    cluster_ca_certificate = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJS3krMWdMUi9GRmt3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRFeE1EWXhNak0zTURoYUZ3MHpOVEV4TURReE1qUXlNRGhhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUNnOCtVUldBUW1SeW5oNHFZdFNLcldFbDI3UEZrS1BNci84ZDdTSXZJbzhESmJCZVVnV25zWXAwSUsKWnVQcUZVTFVCNndYSmE5b0tuS2swbHZPaDdBcms5L1FEakZKSmtlTEUyemY2aFovUUZ2NXgwVFFUUTJwOXdLZQpiSW84RUZRRlhrQS96YTdwNVFrSHZ6elRYQ1o5OFAybHNyRlVCcnJoZktrQlJxZW1WbEFJWjhlcVZwVFdWaUpFCmxhZ3lySk5uVTlaOFdJbXJEdWNzSkE1eDA1RFI2SmszWU9VdmRFcjBXWGl4VjVGN2d2bitKSnFlZTFtQzBYTGcKZTJRYzh5NHpCYWZuRXV1bWd6UU1tQjBuYTFzZDdlYzk3S0d0Ym5wYU1ndklNQ0FhRmRINE5pa1ZPcWV3UlVOVApiVGsxSXZIK2tmQkYyUTlRSEdZcEQ3THlWa3VQQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJRN01RMVpiYUtaZjM1L3B5ZDNWQ0JWaW9mZEpqQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUM3cGl0Vm1qSQp4K3U4L1IrOTVpU2RCYnBBaWlyRDdhRjE5SStaY2ZjSk90MENjWVFxalo3UlhSWEhGbWxSKzZ3U2JqT2ppanFBCkV3V3VxSFUxcytaZmNjNDhNL0M5RU93Wmhvb1ByMkNhdk1UV1oxbXovd2J4UDFiZTFOZEN3cS9jK1RVYkVIUHQKekovREhvMjNLM3puYXNpZ1JZK3Z3UEp2TzdERE5EREJPcnIrUFVob1JvWk84WENOb0lsazRMMWZYbE1BajdtSQpDS2RtTEI2WG5UWWNUcFEvZm83OFkwSHBhSEcvMndaUDZQNytOZmgvd0lLb0tzZFUwN2FWVm4xSlpRWVFtTG16Cm51b09ZdFRKS21MMFJsdjNuQnRselRXUklnTHFHU055WUdNWEdHbWZ5T21JN1VYWWh0QkRxWUlaL3FEdU5PcTgKU1FsQkpRcUlJWlVnCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
 
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       # This requires the awscli to be installed locally where Terraform is executed
-      args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+      args = ["eks", "get-token", "--cluster-name", "eks-test"]
     }
   }
 }
@@ -119,10 +119,10 @@ module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.16"
 
-  cluster_name      = module.eks.cluster_name
-  cluster_endpoint  = module.eks.cluster_endpoint
-  cluster_version   = module.eks.cluster_version
-  oidc_provider_arn = module.eks.oidc_provider_arn
+  cluster_name      = "eks-test"
+  cluster_endpoint  = "https://81889F7A0E27A3A3A2D6B2F5EDF4F7CD.gr7.us-east-1.eks.amazonaws.com"
+  cluster_version   = "1.33"
+  oidc_provider_arn = "https://oidc.eks.us-east-1.amazonaws.com/id/81889F7A0E27A3A3A2D6B2F5EDF4F7CD"
 
   # This is required to expose Istio Ingress Gateway
   enable_aws_load_balancer_controller = true
