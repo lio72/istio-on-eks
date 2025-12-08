@@ -50,60 +50,60 @@ locals {
 # # Cluster
 # ################################################################################
 
-module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.11"
+# module "eks" {
+#   source  = "terraform-aws-modules/eks/aws"
+#   version = "~> 20.11"
 
-  cluster_name                   = local.name
-  cluster_version                = "1.32"
-  cluster_endpoint_public_access = true
+#   cluster_name                   = local.name
+#   cluster_version                = "1.32"
+#   cluster_endpoint_public_access = true
 
-  # Give the Terraform identity admin access to the cluster
-  # which will allow resources to be deployed into the cluster
-  enable_cluster_creator_admin_permissions = true
+#   # Give the Terraform identity admin access to the cluster
+#   # which will allow resources to be deployed into the cluster
+#   enable_cluster_creator_admin_permissions = true
 
-  cluster_addons = {
-    coredns    = {}
-    kube-proxy = {}
-    vpc-cni    = {}
-  }
+#   cluster_addons = {
+#     coredns    = {}
+#     kube-proxy = {}
+#     vpc-cni    = {}
+#   }
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+#   vpc_id     = module.vpc.vpc_id
+#   subnet_ids = module.vpc.private_subnets
 
-  eks_managed_node_groups = {
-    initial = {
-      instance_types = [" t2.medium"]
+#   eks_managed_node_groups = {
+#     initial = {
+#       instance_types = [" t2.medium"]
 
-      min_size     = 1
-      max_size     = 5
-      desired_size = 2
-    }
-  }
+#       min_size     = 1
+#       max_size     = 5
+#       desired_size = 2
+#     }
+#   }
 
-  #  EKS K8s API cluster needs to be able to talk with the EKS worker nodes with port 15017/TCP and 15012/TCP which is used by Istio
-  #  Istio in order to create sidecar needs to be able to communicate with webhook and for that network passage to EKS is needed.
-  node_security_group_additional_rules = {
-    ingress_15017 = {
-      description                   = "Cluster API - Istio Webhook namespace.sidecar-injector.istio.io"
-      protocol                      = "TCP"
-      from_port                     = 15017
-      to_port                       = 15017
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-    ingress_15012 = {
-      description                   = "Cluster API to nodes ports/protocols"
-      protocol                      = "TCP"
-      from_port                     = 15012
-      to_port                       = 15012
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-  }
+#   #  EKS K8s API cluster needs to be able to talk with the EKS worker nodes with port 15017/TCP and 15012/TCP which is used by Istio
+#   #  Istio in order to create sidecar needs to be able to communicate with webhook and for that network passage to EKS is needed.
+#   node_security_group_additional_rules = {
+#     ingress_15017 = {
+#       description                   = "Cluster API - Istio Webhook namespace.sidecar-injector.istio.io"
+#       protocol                      = "TCP"
+#       from_port                     = 15017
+#       to_port                       = 15017
+#       type                          = "ingress"
+#       source_cluster_security_group = true
+#     }
+#     ingress_15012 = {
+#       description                   = "Cluster API to nodes ports/protocols"
+#       protocol                      = "TCP"
+#       from_port                     = 15012
+#       to_port                       = 15012
+#       type                          = "ingress"
+#       source_cluster_security_group = true
+#     }
+#   }
 
-  tags = local.tags
-}
+#   tags = local.tags
+# }
 
 ################################################################################
 # EKS Blueprints Addons
@@ -119,10 +119,10 @@ module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.16"
 
-  cluster_name      = "eks-test"
-  cluster_endpoint  = "https://81889F7A0E27A3A3A2D6B2F5EDF4F7CD.gr7.us-east-1.eks.amazonaws.com"
+  cluster_name      = "test-eks"
+  cluster_endpoint  = "https://69750B78DC9630EF1793AB15A8DB77BC.gr7.us-east-1.eks.amazonaws.com"
   cluster_version   = "1.33"
-  oidc_provider_arn = "https://oidc.eks.us-east-1.amazonaws.com/id/81889F7A0E27A3A3A2D6B2F5EDF4F7CD"
+  oidc_provider_arn = "https://oidc.eks.us-east-1.amazonaws.com/id/69750B78DC9630EF1793AB15A8DB77BC"
 
   # This is required to expose Istio Ingress Gateway
   enable_aws_load_balancer_controller = true
@@ -130,6 +130,7 @@ module "eks_blueprints_addons" {
   helm_releases = {
     istio-base = {
       chart         = "base"
+      version        = "1.26.4"
       chart_version = local.istio_chart_version
       repository    = local.istio_chart_url
       name          = "istio-base"
@@ -157,7 +158,7 @@ module "eks_blueprints_addons" {
       repository    = local.istio_chart_url
       name          = "istiod"
       namespace     = kubernetes_namespace_v1.istio_system.metadata[0].name
-
+      version        = "1.26.4"
       set = [
         {
           name  = "meshConfig.accessLogFile"
